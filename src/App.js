@@ -25,9 +25,15 @@ function App() {
         <div className="column is-three-quarters">
           <div className="section">
             <MapView></MapView>
-
           </div>
+          <section className="section">
+            <div class="container">
+              <h1 className="title">Log Viewer</h1>
+                <LogViewer socketController={state.socketController}></LogViewer>
+            </div>
+          </section>
         </div>
+        
         <div className="column">
           <section className="section">
             <div class="container">
@@ -51,10 +57,6 @@ function App() {
 
       </div>
       <footer class="footer">
-        <Card title="Log Viewer" className="logviewer">
-          <LogViewer socketController={state.socketController}></LogViewer>
-
-        </Card>
       </footer>
 
 

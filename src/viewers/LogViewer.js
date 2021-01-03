@@ -24,7 +24,7 @@ function LogViewer(props) {
     }
   }, [props.socketController])
 
-  return <table className="table">
+  return <div className="logviewer"><table className="table ">
     <thead className=" displayblock ">
       <tr>
         <th>Timestamp</th>
@@ -32,7 +32,7 @@ function LogViewer(props) {
         <th className="width99">Message</th><th>Service</th></tr></thead>
     <LogViewerRows rows={rows}></LogViewerRows>
     <tfoot></tfoot>
-  </table>
+  </table></div>
 }
 
 function LogViewerRows(props) {

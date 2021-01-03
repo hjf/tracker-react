@@ -38,6 +38,8 @@
   height: 10em;
 }
 
+.logviewer{width:100%}
+.logviewer table {width:100%}
 /* .logviewer {
   position: fixed;
   left: 0;
