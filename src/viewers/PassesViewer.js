@@ -11,7 +11,7 @@ function PassesViewer(props) {
 
     let setter = () => {
       axios.get('/upcomingPasses')
-        .then(res => { setRows(res.data.map(x => { x.action = JSON.parse(x.action); return x })) })
+        .then(res => { setRows(res.data) })
         .catch(err => { console.error(err); setError(err.message) })
     }
 
