@@ -2,8 +2,8 @@
   white-space: nowrap;
 }
 .leaflet-container {
-  height: 300px;
-  width:calc( 100% - 22em )
+  height: 50vh;
+  width:calc( 100% )
 }
 
 .leaflet-marker-icon {
@@ -38,21 +38,21 @@
   height: 10em;
 }
 
-.logviewer {
+/* .logviewer {
   position: fixed;
   left: 0;
   bottom: 0;
   height: 15em;
   width: 100%;
-}
-.trackervierwer {
+} */
+/* .trackervierwer {
   position: fixed;
   top:30em;
   right: 0;
   height: 15em;
   width: 15em;
   margin: 1em;
-}
+} */
 
 .tracking-active {
   color: red;
@@ -69,13 +69,31 @@
 }
 
 .upcoming {
+  max-height: 20em;
+  overflow: hidden;
+}
+/* .upcoming {
   position: fixed;
   right: 0;
   height: 25em;
   width: 15em;
   margin: 1em;
-}
+} */
 .upcoming table {
-  font-size:  .8em !important;
+  /* font-size:  .8em !important; */
 
+}
+
+
+.tracker_viewer_label {
+  width:5em;
+  overflow: hidden;
+  margin:0;padding:0;
+  display: inline-block;
+}
+
+.tracker_viewer_value {
+  overflow: hidden;
+  margin:0;padding:0;
+  display: inline-block;
 }

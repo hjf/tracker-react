@@ -26,24 +26,35 @@ function TrackerViewer(props) {
     }
   }, [props.socketController])
 
+
   return <div>
     <p>
-      <b >Status:</b>
-      <span className={" " + (trackerStatus.satellite ? "tracking-active" : "tracking-idle")}>⬤</span>
-      {trackerStatus.satellite ? 'Tracking' : 'Idle'}
-      
+      <b className="tracker_viewer_label">Status</b>
+      <span className="tracker_viewer_value">
+        <span className={" " + (trackerStatus.satellite ? "tracking-active" : "tracking-idle")}> ⬤ </span>
+        {trackerStatus.satellite ? 'Tracking' : 'Idle'}
+      </span>
+
     </p>
     <p>
-      <b>Satellite:</b>
-      {trackerStatus.satellite ? trackerStatus.satellite.name : 'N/A'}
+      <b className="tracker_viewer_label">Satellite</b>
+      <span className="tracker_viewer_value">
+        {trackerStatus.satellite ? trackerStatus.satellite.name : 'N/A'}
+      </span>
     </p>
     <p>
-      <b>Azimuth</b>
-      {trackerStatus.azimuth.toFixed(1)}°
+      <b className="tracker_viewer_label">Azimuth</b>
+      <span className="tracker_viewer_value">
+        {trackerStatus.azimuth.toFixed(1)}°
+      </span>
+
     </p>
     <p>
-      <b>Elevation</b>
-      {trackerStatus.elevation.toFixed(1)}°
+      <b className="tracker_viewer_label">Elevation</b>
+      <span className="tracker_viewer_value">
+        {trackerStatus.elevation.toFixed(1)}°
+      </span>
+
     </p>
   </div>
 
