@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import SocketController from './socketController'
-import { Card } from './Card'
 import 'bulma/css/bulma.css'
 
 
