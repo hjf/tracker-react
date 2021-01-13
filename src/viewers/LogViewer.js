@@ -20,6 +20,10 @@ function LogViewer(props) {
   useEffect(() => {
     let setter = (newrow) => {
       setRows(oldRows => {
+        let id = 0
+        if (oldRows.length > 0)
+          id = oldRows[0].id
+        newrow.id = id
         return [newrow, ...oldRows].slice(0, 50)
       })
     }
@@ -45,14 +49,14 @@ function LogViewer(props) {
 
 function LogViewerRows(props) {
   return <tbody className=" ">
-    {props.rows.map(row => <LogViewerRow key={row.timestamp} {...row}></LogViewerRow>)}
+    {props.rows.map(row => <LogViewerRow key={row.id} {...row}></LogViewerRow>)}
   </tbody>
 
 }
 
 function LogViewerRow(props) {
 
-  return <tr><td className="nowrap">{dayjs(props.timestamp).format('L LTS')}</td>
+  return <tr ><td className="nowrap">{dayjs(props.timestamp).format('L LTS')}</td>
     <td className="nowrap">{props.level}</td>
     <td className="width99">{props.message}</td>
     <td className="nowrap">{props.service}</td></tr>

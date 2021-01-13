@@ -8,12 +8,16 @@ import { MapView } from './viewers/MapView'
 import { LogViewer } from './viewers/LogViewer'
 import { TrackerViewer } from './viewers/TrackerViewer'
 
+import { PassDetail } from './viewers/PassDetail'
+
 import 'leaflet/dist/leaflet.css'
 import 'leaflet/dist/leaflet.js'
 import './App.css'
 
 function App() {
   const [state, setState] = useState({ socketController: null })
+  const [selectedPass, setSelectedPass] = useState(null);
+
   useEffect(() => {
     let socketController = new SocketController();
     setState(oldState => { return { ...oldState, socketController: socketController } })
@@ -25,27 +29,35 @@ function App() {
           <div className="section">
             <MapView></MapView>
           </div>
+
           <section className="section">
-            <div class="container">
+            <div className="container">
+              <PassDetail {...selectedPass}/>
+            </div>
+          </section>
+
+
+          <section className="section">
+            <div className="container">
               <h1 className="title">Log Viewer</h1>
-                <LogViewer socketController={state.socketController}></LogViewer>
+              <LogViewer socketController={state.socketController}></LogViewer>
             </div>
           </section>
         </div>
-        
+
         <div className="column">
           <section className="section">
-            <div class="container">
+            <div className="container">
               <h1 className="title">Upcoming Passes</h1>
               <div className="upcoming" >
-                <PassesViewer socketController={state.socketController}></PassesViewer>
+                <PassesViewer detailCallback={setSelectedPass} socketController={state.socketController}></PassesViewer>
               </div>
             </div>
           </section>
 
           <section className="section">
 
-            <div class="container">
+            <div className="container">
               <h1 className="title">Tracker</h1>
 
               <TrackerViewer socketController={state.socketController} />
@@ -55,7 +67,7 @@ function App() {
         </div>
 
       </div>
-      <footer class="footer">
+      <footer className="footer">
       </footer>
 
 

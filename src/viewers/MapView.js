@@ -65,7 +65,7 @@ function SatMarkers(props) {
 
 function SatMarker(props) {
   const customMarkerIcon = divIcon({
-    html: "<p>🛰️</p><p class=\"satname\">" + props.name + "</p>",
+    html: "<p>🛰️</p><p className=\"satname\">" + props.name + "</p>",
   });
   const position = [props.observation.latitude, props.observation.longitude];
   return <><Marker

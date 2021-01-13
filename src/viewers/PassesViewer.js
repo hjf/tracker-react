@@ -7,6 +7,12 @@ import dayjs from 'dayjs';
 function PassesViewer(props) {
   const [rows, setRows] = useState([])
   const [error, setError] = useState('')
+
+  function rowClick(pass) {
+    if (props.detailCallback)
+      props.detailCallback(pass)
+  }
+
   useEffect(() => {
 
     let setter = () => {
@@ -37,7 +43,7 @@ function PassesViewer(props) {
         <th>Max El</th>
       </tr>
     </thead>
-    <PassesViewerRows rows={rows}></PassesViewerRows>
+    <PassesViewerRows rowClick={rowClick} rows={rows}></PassesViewerRows>
     <tfoot></tfoot>
   </table>
 
@@ -45,14 +51,14 @@ function PassesViewer(props) {
 
 function PassesViewerRows(props) {
   return <tbody className="  ">
-    {props.rows.map(row => <PassesViewerRow key={row.schedule_id} {...row}></PassesViewerRow>)}
+    {props.rows.map(row => <PassesViewerRow rowClick={props.rowClick} key={row.schedule_id} {...row}></PassesViewerRow>)}
   </tbody>
 
 }
 
 function PassesViewerRow(props) {
-
-  return <tr><td className="nowrap">{dayjs(props.schedule_time).format('LT')}</td>
+  const rowclass = props.run_status === 'disabled' ? 'disabledPass has-text-grey-light' : ""
+  return <tr className={rowclass} onClick={(o) => props.rowClick(props)}><td className="nowrap">{dayjs(props.schedule_time).format('LT')}</td>
     <td className="nowrap">{props.action.satellite.name}</td>
     <td className="nowrap">{props.action.prediction.maxElevation.toFixed(0)}</td>
   </tr>

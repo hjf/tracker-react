@@ -11,8 +11,13 @@ function TrackerViewer(props) {
   useEffect(() => {
 
     let setter = (data) => {
-      if (data)
-        setTrackerStatus(data)
+      try {
+        if (data) {
+          setTrackerStatus(data)
+        }
+      } catch (err) {
+        console.error(err)
+      }
     }
 
     setter();
