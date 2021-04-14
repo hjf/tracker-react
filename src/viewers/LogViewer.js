@@ -19,11 +19,18 @@ function LogViewer(props) {
 
   useEffect(() => {
     let setter = (newrow) => {
+      const { message } = newrow
+
+      if (typeof message !== 'string' && !(message instanceof String)) {
+        newrow.message = JSON.stringify(message, null, 2)
+      }
+
       setRows(oldRows => {
         let id = 0
         if (oldRows.length > 0)
           id = oldRows[0].id
         newrow.id = id
+        console.log([newrow, ...oldRows].slice(0, 50))
         return [newrow, ...oldRows].slice(0, 50)
       })
     }
