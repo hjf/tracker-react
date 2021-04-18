@@ -14,7 +14,7 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet/dist/leaflet.js'
 import './App.css'
 
-function App() {
+function App () {
   const [state, setState] = useState({ socketController: null })
   const [selectedPass, setSelectedPass] = useState(null);
 
@@ -27,12 +27,12 @@ function App() {
       <div className="columns">
         <div className="column is-three-quarters">
           <div className="section">
-            <MapView></MapView>
+            <MapView selectedPass={selectedPass}></MapView>
           </div>
 
           <section className="section">
             <div className="container">
-              <PassDetail {...selectedPass}/>
+              <PassDetail {...selectedPass} />
             </div>
           </section>
 

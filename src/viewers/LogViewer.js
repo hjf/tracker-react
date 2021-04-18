@@ -8,7 +8,7 @@ import 'bulma/css/bulma.css'
 dayjs.extend(LocalizedFormat)
 dayjs.locale(es)
 
-function LogViewer(props) {
+function LogViewer (props) {
   const [rows, setRows] = useState([])
 
   useEffect(() => {
@@ -19,20 +19,14 @@ function LogViewer(props) {
 
   useEffect(() => {
     let setter = (newrow) => {
+      console.log(newrow)
       const { message } = newrow
 
       if (typeof message !== 'string' && !(message instanceof String)) {
         newrow.message = JSON.stringify(message, null, 2)
       }
 
-      setRows(oldRows => {
-        let id = 0
-        if (oldRows.length > 0)
-          id = oldRows[0].id
-        newrow.id = id
-        console.log([newrow, ...oldRows].slice(0, 50))
-        return [newrow, ...oldRows].slice(0, 50)
-      })
+      setRows(oldRows => { return [newrow, ...oldRows].slice(0, 50) })
     }
     if (props.socketController)
       props.socketController.subscribe(setter, 'log')
@@ -48,20 +42,21 @@ function LogViewer(props) {
       <tr>
         <th>Timestamp</th>
         <th>Level</th>
-        <th className="">Message</th><th>Service</th></tr></thead>
+        <th className="">Message</th><th>Service</th></tr>
+    </thead>
     <LogViewerRows rows={rows}></LogViewerRows>
     <tfoot></tfoot>
   </table></div>
 }
 
-function LogViewerRows(props) {
+function LogViewerRows (props) {
   return <tbody className=" ">
-    {props.rows.map(row => <LogViewerRow key={row.id} {...row}></LogViewerRow>)}
+    {props.rows.map(row => <LogViewerRow key={row.uuid} {...row}></LogViewerRow>)}
   </tbody>
 
 }
 
-function LogViewerRow(props) {
+function LogViewerRow (props) {
 
   return <tr ><td className="nowrap">{dayjs(props.timestamp).format('L LTS')}</td>
     <td className="nowrap">{props.level}</td>

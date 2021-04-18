@@ -1,12 +1,13 @@
 import React from 'react'
 import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet'
-import { divIcon } from 'leaflet';
+import { GeodesicLine } from 'leaflet.geodesic/dist/leaflet.geodesic'
+import { divIcon, marker } from 'leaflet';
 // import  GeodesicLine  from 'react-leaflet-geodesic'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import jspredict from 'jspredict'
 
-function getMarkers(satellites) {
+function getMarkers (satellites) {
   return satellites.map(sat => {
     return {
       name: sat.name,
@@ -18,9 +19,12 @@ function getMarkers(satellites) {
 
 
 
-function MapView(props) {
+function MapView (props) {
   const [home, setHome] = useState([0, 0]);
   const [satellites, setSatellites] = useState([]);
+  const [mapInstance, setMapInstance] = useState(null)
+  const [geodesicLine, setGeodesicLine] = useState(null)
+  const [passStartEnd, setpassStartEnd] = useState(null)
 
   useEffect(() => {
     axios.get('/getGroundStationLocation')
@@ -34,21 +38,39 @@ function MapView(props) {
       .catch(err => console.error(err))
   }, [])
 
+  useEffect(() => {
+    setGeodesicLine(oldGeodesicLine => {
+      if (oldGeodesicLine && mapInstance)
+        oldGeodesicLine.remove(mapInstance)
 
+      if (props.selectedPass && mapInstance) {
+        const { startPosition, endPosition } = props.selectedPass.action.prediction;
+        const startEnd = [[startPosition.latitude, startPosition.longitude], [endPosition.latitude, endPosition.longitude]];
+        setpassStartEnd(startEnd)
+        const gl = new GeodesicLine(startEnd)
+        gl.addTo(mapInstance)
+        return gl
+      }
+    })
+  }, [props.selectedPass, mapInstance])
 
 
   return <MapContainer
+    whenCreated={i => { setMapInstance(i) }}
     center={home} zoom={1} className="leaflet-container">
 
     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="" />
-    < HomeMarker position={home} />
+    <HomeMarker position={home} />
     <SunMarker></SunMarker>
     <SatMarkers satellites={satellites}></SatMarkers>
+    {passStartEnd && <Marker position={passStartEnd[0]} icon={divIcon({ html: "🟢", })} />}
+    {passStartEnd && <Marker position={passStartEnd[1]} icon={divIcon({ html: "🔴", })} />}
+
   </MapContainer >
 
 }
 
-function SatMarkers(props) {
+function SatMarkers (props) {
   const [satMarkers, setSatMarkers] = useState([])
   useEffect(() => {
     setSatMarkers(getMarkers(props.satellites))
@@ -63,7 +85,7 @@ function SatMarkers(props) {
 }
 
 
-function SatMarker(props) {
+function SatMarker (props) {
   const customMarkerIcon = divIcon({
     html: "<p>🛰️</p><p className=\"satname\">" + props.name + "</p>",
   });
@@ -74,16 +96,17 @@ function SatMarker(props) {
     <Popup>
       <p>{props.name}</p>
     </Popup>
+
   </Marker>
   </>
 }
 
-function HomeMarker(props) {
+function HomeMarker (props) {
   const customMarkerIcon = divIcon({ html: "📡", });
   return <Marker {...props} icon={customMarkerIcon} />
 }
 
-function SunMarker(props) {
+function SunMarker (props) {
   const [sunPosition, setSunPosition] = useState([0, 0])
   useEffect(() => {
     setSunPosition(getsunpos());
@@ -99,7 +122,7 @@ function SunMarker(props) {
 }
 
 //http://www.ne.jp/asahi/hamradio/je9pel/sunpos.js
-function getsunpos() {
+function getsunpos () {
   let date = new Date();
   let rad = 0.017453292519943295;
   // based on NOAA solar calculations

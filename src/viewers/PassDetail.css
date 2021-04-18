@@ -1,0 +1,7 @@
+.passDetailContainer {
+  display: flex;
+}
+
+.passDetailTile {
+  margin: auto;
+}
