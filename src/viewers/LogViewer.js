@@ -53,13 +53,12 @@ function LogViewerRows (props) {
 
   let filteredRows = []
   for (let i = 0; i < props.rows.length; i++) {
-    console.log(props.rows[i].message)
-
-    if (i === 0 || (props.rows[i].message != props.rows[i - 1].message)) {
+    if (i === 0 || (props.rows[i].message !== props.rows[i - 1].message)) {
       filteredRows.push(props.rows[i])
     } else {
-
-      filteredRows[filteredRows.length - 2].repeat = filteredRows[filteredRows.length - 2].repeat ? filteredRows[filteredRows.length - 2].repeat + 1 : 2;
+      const n2 = filteredRows[filteredRows.length - 1]
+      if (!n2.repeat) n2.repeat = 0
+      n2.repeat++
     }
   }
 
@@ -73,13 +72,13 @@ function LogViewerRow (props) {
 
   return <tr ><td className="nowrap">{dayjs(props.timestamp).format('L LTS')}</td>
     <td className="nowrap">{props.level}</td>
-    <td className="width99"><LogViewerRepeat count={props.repeat} />{props.message}</td>
+    <td className="width99"><LogViewerRepeat count={props.repeat} /> {props.message}</td>
     <td className="nowrap">{props.service}</td></tr>
 }
 
 function LogViewerRepeat (props) {
   if (props.count) {
-    return <span class="logViewerRepeats">{props.count}</span>
+    return <span class="tag is-danger">{props.count}</span>
   }
   return <></>
 }
