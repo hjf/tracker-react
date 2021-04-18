@@ -12,7 +12,7 @@ function PassDetail (props) {
   const direction = prediction.direction === 'N' ? 'Northbound' : 'Southbound'
 
   return <>
-    <h1 className='h1'>Details for pass #{props.schedule_id}</h1>
+    <h1 className='h1 title'>Details for pass #{props.schedule_id}</h1>
     <p><span className='label'>Satellite:</span>{satellite.name}</p>
 
     <div className="passDetailContainer">

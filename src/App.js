@@ -16,8 +16,12 @@ import './App.css'
 
 function App () {
   const [state, setState] = useState({ socketController: null })
-  const [selectedPass, setSelectedPass] = useState(null);
+  const [logViewerExpanded, setLogViewerExpanded] = useState(false);
 
+  const [selectedPass, setSelectedPass] = useState(null);
+  const toggleState = () => {
+    setLogViewerExpanded(e => !e);
+  }
   useEffect(() => {
     let socketController = new SocketController();
     setState(oldState => { return { ...oldState, socketController: socketController } })
@@ -26,27 +30,24 @@ function App () {
     <>
       <div className="columns">
         <div className="column is-three-quarters">
-          <div className="section">
+          <div className="">
             <MapView selectedPass={selectedPass}></MapView>
           </div>
 
-          <section className="section">
+          <section className="">
             <div className="container">
               <PassDetail {...selectedPass} />
             </div>
           </section>
 
 
-          <section className="section">
-            <div className="container">
-              <h1 className="title">Log Viewer</h1>
-              <LogViewer socketController={state.socketController}></LogViewer>
-            </div>
+          <section className="">
+
           </section>
         </div>
 
         <div className="column">
-          <section className="section">
+          <section className="">
             <div className="container">
               <h1 className="title">Upcoming Passes</h1>
               <div className="upcoming" >
@@ -55,7 +56,7 @@ function App () {
             </div>
           </section>
 
-          <section className="section">
+          <section className="">
 
             <div className="container">
               <h1 className="title">Tracker</h1>
@@ -67,8 +68,13 @@ function App () {
         </div>
 
       </div>
-      <footer className="footer">
-      </footer>
+      <div className="logViewerContainer" aria-expanded={logViewerExpanded}>
+        <h1 className="title">Log Viewer</h1>
+        <button className="toggler" onClick={toggleState}>*</button>
+        <div className="logViewerDetail">
+          <LogViewer socketController={state.socketController}></LogViewer>
+        </div>
+      </div>
 
 
     </>

@@ -59,7 +59,7 @@ function PassesViewerRows (props) {
 
 function PassesViewerRow (props) {
   const rowclass = props.run_status === 'disabled' ? 'disabledPass has-text-grey-light' : ""
-  return <tr className={rowclass} onClick={(o) => props.rowClick(props)}><td className="nowrap">{dayjs(props.schedule_time).format('LT')}</td>
+  return <tr className={'tableRow  ' + rowclass} onClick={(o) => props.rowClick(props)}><td className="nowrap">{dayjs(props.schedule_time).format('LT')}</td>
     <td className="nowrap">{props.action.satellite.name}</td>
     <td className="nowrap">{props.action.prediction.maxElevation.toFixed(0)}</td>
   </tr>

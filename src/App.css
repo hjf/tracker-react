@@ -16,6 +16,11 @@ tr.disabledPass td:before {
   width: 100%;
 }
 
+.tableRow:hover {
+  background-color: hsl(0, 0%, 96%);
+  cursor: pointer;
+}
+
 /* .disabledPass {
   text-decoration: line-through;
 } */
@@ -24,7 +29,7 @@ tr.disabledPass td:before {
 }
 .leaflet-container {
   height: 50vh;
-  width:calc( 100% )
+  width: calc(100%);
 }
 
 .leaflet-marker-icon {
@@ -36,8 +41,8 @@ tr.disabledPass td:before {
   background-color: transparent;
   padding: 0 !important;
   margin: 0 !important;
-  margin-left:-5em !important;
-  margin-top:-.5em !important;
+  margin-left: -5em !important;
+  margin-top: -0.5em !important;
 }
 
 .leaflet-marker-icon .satname {
@@ -59,8 +64,12 @@ tr.disabledPass td:before {
   height: 10em;
 }
 
-.logviewer{width:100%}
-.logviewer table {width:100%}
+.logviewer {
+  width: 100%;
+}
+.logviewer table {
+  width: 100%;
+}
 /* .logviewer {
   position: fixed;
   left: 0;
@@ -82,7 +91,7 @@ tr.disabledPass td:before {
   animation: blinker 1s ease-in-out infinite;
 }
 .tracking-idle {
-  color: blue;  
+  color: blue;
 }
 
 @keyframes blinker {
@@ -104,19 +113,89 @@ tr.disabledPass td:before {
 } */
 .upcoming table {
   /* font-size:  .8em !important; */
-
 }
 
-
 .tracker_viewer_label {
-  width:5em;
+  width: 5em;
   overflow: hidden;
-  margin:0;padding:0;
+  margin: 0;
+  padding: 0;
   display: inline-block;
 }
 
 .tracker_viewer_value {
   overflow: hidden;
-  margin:0;padding:0;
+  margin: 0;
+  padding: 0;
   display: inline-block;
+}
+
+@keyframes slideup {
+  from {
+    height: 2em;
+  }
+  to {
+    height: 20em;
+  }
+}
+
+@keyframes slidedown {
+  from {
+    height: 20em;
+  }
+  to {
+    height: 2em;
+  }
+}
+
+.logViewerContainer[aria-expanded] {
+  position: absolute;
+  width: 98%;
+  height: 2em;
+  z-index: 300000;
+  bottom: 0;
+  background-color: white;
+  left: 1%;
+  border: 1px solid lightgray;
+  padding: 1em;
+  overflow: hidden;
+  animation-duration: 300ms;
+  animation-iteration-count: 1;
+  animation-name: slidedown;
+  animation-direction: normal;
+}
+
+.logViewerContainer[aria-expanded="true"] {
+  animation-name: slideup;
+
+  height: 20em;
+}
+
+.logViewerDetail {
+  overflow: scroll;
+  height: 100%;
+}
+
+.toggler {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 0;
+  height: 2em;
+  width: 2em;
+  margin: 0;
+  padding: 0;
+}
+
+.logViewerContainer[aria-expanded="true"] .toggler {
+  background-color: red;
+}
+
+.logViewerContainer[aria-expanded="false"] h1 {
+  font-size: 0.75em !important;
+  margin: 0;
+  padding: 0;
+  margin-top:-0.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }

@@ -26,7 +26,7 @@ function LogViewer (props) {
         newrow.message = JSON.stringify(message, null, 2)
       }
 
-      setRows(oldRows => { return [newrow, ...oldRows].slice(0, 50) })
+      setRows(oldRows => [newrow, ...oldRows].slice(0, 50))
     }
     if (props.socketController)
       props.socketController.subscribe(setter, 'log')
@@ -50,8 +50,21 @@ function LogViewer (props) {
 }
 
 function LogViewerRows (props) {
+
+  let filteredRows = []
+  for (let i = 0; i < props.rows.length; i++) {
+    console.log(props.rows[i].message)
+
+    if (i === 0 || (props.rows[i].message != props.rows[i - 1].message)) {
+      filteredRows.push(props.rows[i])
+    } else {
+
+      filteredRows[filteredRows.length - 2].repeat = filteredRows[filteredRows.length - 2].repeat ? filteredRows[filteredRows.length - 2].repeat + 1 : 2;
+    }
+  }
+
   return <tbody className=" ">
-    {props.rows.map(row => <LogViewerRow key={row.uuid} {...row}></LogViewerRow>)}
+    {filteredRows.map(row => <LogViewerRow key={row.uuid} {...row}></LogViewerRow>)}
   </tbody>
 
 }
@@ -60,8 +73,15 @@ function LogViewerRow (props) {
 
   return <tr ><td className="nowrap">{dayjs(props.timestamp).format('L LTS')}</td>
     <td className="nowrap">{props.level}</td>
-    <td className="width99">{props.message}</td>
+    <td className="width99"><LogViewerRepeat count={props.repeat} />{props.message}</td>
     <td className="nowrap">{props.service}</td></tr>
+}
+
+function LogViewerRepeat (props) {
+  if (props.count) {
+    return <span class="logViewerRepeats">{props.count}</span>
+  }
+  return <></>
 }
 
 export { LogViewer }
