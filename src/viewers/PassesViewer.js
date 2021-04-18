@@ -4,11 +4,11 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
 
-function PassesViewer(props) {
+function PassesViewer (props) {
   const [rows, setRows] = useState([])
   const [error, setError] = useState('')
 
-  function rowClick(pass) {
+  function rowClick (pass) {
     if (props.detailCallback)
       props.detailCallback(pass)
   }
@@ -21,10 +21,11 @@ function PassesViewer(props) {
         .catch(err => { console.error(err); setError(err.message) })
     }
 
-    setter();
 
-    if (props.socketController)
+    if (props.socketController) {
+      setter();
       props.socketController.subscribe(setter, 'new_schedules')
+    }
 
     return () => {
       if (props.socketController)
@@ -49,14 +50,14 @@ function PassesViewer(props) {
 
 }
 
-function PassesViewerRows(props) {
+function PassesViewerRows (props) {
   return <tbody className="  ">
     {props.rows.map(row => <PassesViewerRow rowClick={props.rowClick} key={row.schedule_id} {...row}></PassesViewerRow>)}
   </tbody>
 
 }
 
-function PassesViewerRow(props) {
+function PassesViewerRow (props) {
   const rowclass = props.run_status === 'disabled' ? 'disabledPass has-text-grey-light' : ""
   return <tr className={rowclass} onClick={(o) => props.rowClick(props)}><td className="nowrap">{dayjs(props.schedule_time).format('LT')}</td>
     <td className="nowrap">{props.action.satellite.name}</td>
