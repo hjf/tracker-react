@@ -53,11 +53,11 @@ function LogViewerRows (props) {
 
   let filteredRows = []
   for (let i = 0; i < props.rows.length; i++) {
-    if (i === 0 || (props.rows[i].message !== props.rows[i - 1].message)) {
-      filteredRows.push(props.rows[i])
+    if (i === 0 || (props.rows[i].message != props.rows[i - 1].message)) {
+      filteredRows.push({ ...props.rows[i] })
     } else {
       const n2 = filteredRows[filteredRows.length - 1]
-      if (!n2.repeat) n2.repeat = 0
+      if (!n2.repeat) n2.repeat = 1
       n2.repeat++
     }
   }
