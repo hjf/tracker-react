@@ -44,7 +44,7 @@ function App () {
   return (
     <>
       <div className="columns">
-        <div className="column is-full-">
+        <div className="column is-full">
           <div className="">
             <MapView selectedPass={selectedPass}></MapView>
           </div>

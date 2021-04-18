@@ -63,8 +63,8 @@ function MapView (props) {
     <HomeMarker position={home} />
     <SunMarker></SunMarker>
     <SatMarkers satellites={satellites}></SatMarkers>
-    {passStartEnd && <Marker position={passStartEnd[0]} icon={divIcon({ html: "🟢", })} />}
-    {passStartEnd && <Marker position={passStartEnd[1]} icon={divIcon({ html: "🔴", })} />}
+    {props.selectedPass &&passStartEnd && <Marker position={passStartEnd[0]} icon={divIcon({ html: "🟢", })} />}
+    {props.selectedPass &&passStartEnd && <Marker position={passStartEnd[1]} icon={divIcon({ html: "🔴", })} />}
 
   </MapContainer >
 

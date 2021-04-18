@@ -37,10 +37,18 @@ tr.disabledPass td:before {
 .nowrap {
   white-space: nowrap;
 }
+
 .leaflet-container {
   height: 50vh;
   width: calc(100%);
 }
+@media (max-width: 768px) {
+  .leaflet-container {
+    height:25vh;
+    width: calc(100%);
+  }
+}
+
 
 .leaflet-marker-icon {
   border: 0 !important;
@@ -111,8 +119,11 @@ tr.disabledPass td:before {
 }
 
 .upcoming {
-  max-height: 20em;
-  overflow: hidden;
+  max-height: 65vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+
 }
 /* .upcoming {
   position: fixed;
@@ -268,9 +279,8 @@ h1 {
   letter-spacing: 0.1em;
   border-bottom: 1px solid lightgray;
   vertical-align: baseline;
-
 }
 .passViewerTitleText {
   display: inline-block;
-  padding-top:.15em
+  padding-top: 0.15em;
 }
