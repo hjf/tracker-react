@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 
 
-function TrackerViewer(props) {
+function TrackerViewer (props) {
   const [trackerStatus, setTrackerStatus] = useState({
     satellite: null,
     azimuth: 0,
@@ -32,37 +32,43 @@ function TrackerViewer(props) {
   }, [props.socketController])
 
 
-  return <div>
-    <p>
-      <b className="tracker_viewer_label">Status</b>
-      <span className="tracker_viewer_value">
-        <span className={" " + (trackerStatus.satellite ? "tracking-active" : "tracking-idle")}> ⬤ </span>
-        {trackerStatus.satellite ? 'Tracking' : 'Idle'}
-      </span>
+  return <div className="level is-mobile">
+    <div className="level-item has-text-centered  ">
+      <div>
+        <p className="heading">Status</p>
+        <p className="title">
+          <span className={" " + (trackerStatus.satellite ? "tracking-active" : "tracking-idle")}> ⬤ </span>
+          {trackerStatus.satellite ? 'Tracking' : 'Idle'}
+        </p>
+      </div>
+    </div>
 
-    </p>
-    <p>
-      <b className="tracker_viewer_label">Satellite</b>
-      <span className="tracker_viewer_value">
-        {trackerStatus.satellite ? trackerStatus.satellite.name : 'N/A'}
-      </span>
-    </p>
-    <p>
-      <b className="tracker_viewer_label">Azimuth</b>
-      <span className="tracker_viewer_value">
-        {trackerStatus.azimuth.toFixed(1)}°
-      </span>
 
-    </p>
-    <p>
-      <b className="tracker_viewer_label">Elevation</b>
-      <span className="tracker_viewer_value">
-        {trackerStatus.elevation.toFixed(1)}°
-      </span>
+    <div className="level-item has-text-centered">
+      <div>
+        <p className="heading">Satellite</p>
+        <p className="title">{trackerStatus.satellite ? trackerStatus.satellite.name : 'N/A'}</p>
+      </div>
+    </div>
 
-    </p>
+
+    <div className="level-item has-text-centered">
+      <div>
+        <p className="heading">Azimuth</p>
+        <p className="title">{trackerStatus.azimuth.toFixed(1)}°        </p>
+      </div>
+    </div>
+
+
+    <div className="level-item has-text-centered">
+      <div>
+        <p className="heading">Elevation</p>
+        <p className="title">{trackerStatus.elevation.toFixed(1)}°
+        </p>
+      </div>
+    </div>
+
   </div>
-
 }
 
 

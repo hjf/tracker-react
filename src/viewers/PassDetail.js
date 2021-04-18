@@ -6,13 +6,22 @@ import './PassDetail.css'
 dayjs.extend(LocalizedFormat)
 
 function PassDetail (props) {
+
   if (!props || !props.action) return <></>
+  const closeDetails = () => {
+    if (props.parentCallback)
+      props.parentCallback()
+  }
+
+
   const { satellite, prediction } = props.action
 
   const direction = prediction.direction === 'N' ? 'Northbound' : 'Southbound'
 
   return <>
-    <h1 className='h1 title'>Details for pass #{props.schedule_id}</h1>
+    <p className=' passViewerTitle has-text-white has-background-primary'>
+      <button onClick={closeDetails} className="button is-small is-primary">🠘</button>&nbsp;
+    <span className="passViewerTitleText">Details for pass #{props.schedule_id}</span></p>
     <p><span className='label'>Satellite:</span>{satellite.name}</p>
 
     <div className="passDetailContainer">

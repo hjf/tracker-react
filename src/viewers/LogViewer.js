@@ -67,18 +67,23 @@ function LogViewerRows (props) {
   </tbody>
 
 }
-
+const levelsToTags = {
+  debug: 'is-warning',
+  error: 'is-danger',
+  info: 'is-info'  
+}
 function LogViewerRow (props) {
+  const level = levelsToTags[props.level]||""
 
   return <tr ><td className="nowrap">{dayjs(props.timestamp).format('L LTS')}</td>
-    <td className="nowrap">{props.level}</td>
+    <td className="nowrap"><span className={`tag ${level}`}>{props.level}</span></td>
     <td className="width99"><LogViewerRepeat count={props.repeat} /> {props.message}</td>
     <td className="nowrap">{props.service}</td></tr>
 }
 
 function LogViewerRepeat (props) {
   if (props.count) {
-    return <span class="tag is-danger">{props.count}</span>
+    return <span className="tag is-danger">{props.count}</span>
   }
   return <></>
 }
