@@ -38,7 +38,7 @@ function TrackerViewer (props) {
         <p className="heading">Status</p>
         <p className="title">
           <span className={" " + (trackerStatus.satellite ? "tracking-active" : "tracking-idle")}> ⬤ </span>
-          {trackerStatus.satellite ? 'Tracking' : 'Idle'}
+          {trackerStatus.satellite ? 'Tracking' : trackerStatus.tracker_power ? 'Idle' : 'Off'}
         </p>
       </div>
     </div>
